@@ -47,13 +47,24 @@ class Game extends Component {
             if (this.state.pickedLetters.includes(secretLetter.letter)) {
                 let newSecretWord = this.state.secretWord.slice()
                 newSecretWord[i].show = true
+                let new_count = this.state.count + 1
                 this.setState({
-                    secretWord: newSecretWord
+                    secretWord: newSecretWord,
+                    count: new_count
                 })
             }
         })
     }
     
+    shouldDisplaySecretLetter = (letter, show) => {
+        if (show) {
+            return letter
+        }
+        else {
+            return "_"
+        }
+    }
+
     addLetterToPickedLetters = (letter) => {
         let newPickedLetters = this.state.pickedLetters.slice()
         newPickedLetters.push(letter)
@@ -71,6 +82,7 @@ class Game extends Component {
                 <RandomWord 
                 picked={this.state.pickedLetters}
                 secret={this.state.secretWord}
+                shouldDisplaySecretLetter={this.shouldDisplaySecretLetter}
                 />
                 {ALPHABET.map((letter, i) => {
                     return (
