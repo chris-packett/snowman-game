@@ -31,23 +31,25 @@ class Game extends Component {
             const secretLetter = {
                 "id": i,
                 "letter": letter,
-                "show": false
+                "show": false,
+                "excludeFromCount": false
             }
             newSecretWord.push(secretLetter)
-            this.setState({
-                secretWord: newSecretWord
-            })
+        })
+        this.setState({
+            secretWord: newSecretWord
         })
     }
 
     updateSecretWord () {
         this.state.secretWord.forEach((secretLetter, i) => {
-            if (this.state.pickedLetters.includes(secretLetter.letter)) {
+            if (this.state.pickedLetters.includes(secretLetter.letter) && secretLetter.excludeFromCount == false) {
                 let newSecretWord = this.state.secretWord.slice()
                 newSecretWord[i].show = true
+                newSecretWord[i].excludeFromCount = true
                 this.setState({
                     secretWord: newSecretWord,
-                    // count: this.state.count + 1
+                    count: this.state.count + 1
                 })
             }
         })
@@ -65,7 +67,7 @@ class Game extends Component {
         return (
             <div className="game">
                 <Snowman 
-                // count={this.state.count}
+                count={this.state.count}
                 secret={this.state.secretWord}
                 />
                 <RandomWord 
