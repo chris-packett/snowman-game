@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 
 class RandomWord extends Component {
 
-    shouldDisplaySecretLetter = (letter, show) => {
-        if (show) {
-            return letter
-        }
-        else {
-            return "_"
-        }
-    }
+    shouldDisplaySecretLetter = (letter, show) =>  show ? letter : "_"
 
     render() {
         return (

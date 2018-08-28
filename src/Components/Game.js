@@ -20,7 +20,7 @@ class Game extends Component {
         this.generateRandomSecretWord()
     }
 
-    generateRandomSecretWord () {
+    generateRandomSecretWord = () => {
         let randomNum = Math.floor(Math.random() * words.length)
         let word = words[randomNum]
         console.log(word)
@@ -41,9 +41,9 @@ class Game extends Component {
         })
     }
 
-    updateSecretWord () {
+    updateSecretWord = () => {
         this.state.secretWord.forEach((secretLetter, i) => {
-            if (this.state.pickedLetters.includes(secretLetter.letter) && secretLetter.excludeFromCount == false) {
+            if (this.state.pickedLetters.includes(secretLetter.letter) && secretLetter.excludeFromCount === false) {
                 let newSecretWord = this.state.secretWord.slice()
                 newSecretWord[i].show = true
                 newSecretWord[i].excludeFromCount = true
@@ -63,17 +63,23 @@ class Game extends Component {
         }, () => this.updateSecretWord())
     }
 
+    playAgain = () => {
+        this.setState({
+            pickedLetters: [],
+            secretWord: [], 
+            count: 0
+        }, this.generateRandomSecretWord)
+    }
+
     render() {
         return (
             <div className="game">
                 <Snowman 
                 count={this.state.count}
-                secret={this.state.secretWord}
+                picked={this.state.pickedLetters}
                 />
                 <RandomWord 
-                picked={this.state.pickedLetters}
                 secret={this.state.secretWord}
-                shouldDisplaySecretLetter={this.shouldDisplaySecretLetter}
                 />
                 <div className="alphabetButtons">
                     {ALPHABET.map((letter, i) => {
@@ -87,6 +93,7 @@ class Game extends Component {
                         )
                     })}
                 </div>
+                <button onClick={this.playAgain}>Play Again</button>
             </div>
         );
     }
