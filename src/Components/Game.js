@@ -47,15 +47,14 @@ class Game extends Component {
             if (this.state.pickedLetters.includes(secretLetter.letter)) {
                 let newSecretWord = this.state.secretWord.slice()
                 newSecretWord[i].show = true
-                let new_count = this.state.count + 1
                 this.setState({
                     secretWord: newSecretWord,
-                    count: new_count
+                    count: this.state.count + 1
                 })
             }
         })
     }
-    
+
     shouldDisplaySecretLetter = (letter, show) => {
         if (show) {
             return letter
@@ -75,25 +74,28 @@ class Game extends Component {
 
     render() {
         return (
-            <div>
+            <div className="game">
                 <Snowman 
-                count={this.state.count}
+                // count={this.state.count}
+                secret={this.state.secretWord}
                 />
                 <RandomWord 
                 picked={this.state.pickedLetters}
                 secret={this.state.secretWord}
                 shouldDisplaySecretLetter={this.shouldDisplaySecretLetter}
                 />
-                {ALPHABET.map((letter, i) => {
-                    return (
-                    <LetterButton 
-                    key={i}
-                    letter={letter}
-                    picked={this.state.pickedLetters} 
-                    addLetterHandler={this.addLetterToPickedLetters} 
-                    />
-                    )
-                })}
+                <div className="alphabetButtons">
+                    {ALPHABET.map((letter, i) => {
+                        return (
+                        <LetterButton 
+                        key={i}
+                        letter={letter}
+                        picked={this.state.pickedLetters} 
+                        addLetterHandler={this.addLetterToPickedLetters} 
+                        />
+                        )
+                    })}
+                </div>
             </div>
         );
     }

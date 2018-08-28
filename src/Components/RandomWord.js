@@ -7,7 +7,7 @@ class RandomWord extends Component {
             <div>
                 {this.props.secret.map((secretLetter, i) => {
                     return (
-                        <span key={i}>
+                        <span key={i} className="letter">
                             {this.props.shouldDisplaySecretLetter(secretLetter.letter, secretLetter.show)}&nbsp;
                         </span>
                     )

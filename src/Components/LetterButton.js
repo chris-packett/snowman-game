@@ -9,7 +9,8 @@ class LetterButton extends Component {
         }
         else {
             return (
-                <button onClick={() => this.props.addLetterHandler(this.props.letter)}> 
+                <button className="alphabetButton" 
+                onClick={() => this.props.addLetterHandler(this.props.letter)}> 
                     {this.props.letter}
                 </button>
             )
