@@ -11,7 +11,8 @@ class Game extends Component {
         super(props);
         this.state = {
             pickedLetters: [],
-            secretWord: []
+            secretWord: [],
+            count: 0
         }
     }
 
@@ -40,20 +41,37 @@ class Game extends Component {
             })
         })
     }
+
+    updateSecretWord () {
+        this.state.secretWord.forEach((secretLetter, i) => {
+            if (this.state.pickedLetters.includes(secretLetter.letter)) {
+                let newSecretWord = this.state.secretWord.slice()
+                newSecretWord[i].show = true
+                this.setState({
+                    secretWord: newSecretWord
+                })
+            }
+        })
+    }
     
     addLetterToPickedLetters = (letter) => {
         let newPickedLetters = this.state.pickedLetters.slice()
         newPickedLetters.push(letter)
         this.setState({
             pickedLetters: newPickedLetters
-        })
+        }, () => this.updateSecretWord())
     }
 
     render() {
         return (
             <div>
-                <Snowman />
-                <RandomWord />
+                <Snowman 
+                count={this.state.count}
+                />
+                <RandomWord 
+                picked={this.state.pickedLetters}
+                secret={this.state.secretWord}
+                />
                 {ALPHABET.map((letter, i) => {
                     return (
                     <LetterButton 
