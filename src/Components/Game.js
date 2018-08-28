@@ -22,11 +22,9 @@ class Game extends Component {
 
     generateRandomSecretWord () {
         let randomNum = Math.floor(Math.random() * words.length)
-        console.log(randomNum)
         let word = words[randomNum]
         console.log(word)
         let letters = word.split('')
-        console.log(letters)
         let newSecretWord = this.state.secretWord.slice()
 
         letters.forEach((letter, i) => {
@@ -49,19 +47,10 @@ class Game extends Component {
                 newSecretWord[i].show = true
                 this.setState({
                     secretWord: newSecretWord,
-                    count: this.state.count + 1
+                    // count: this.state.count + 1
                 })
             }
         })
-    }
-
-    shouldDisplaySecretLetter = (letter, show) => {
-        if (show) {
-            return letter
-        }
-        else {
-            return "_"
-        }
     }
 
     addLetterToPickedLetters = (letter) => {
