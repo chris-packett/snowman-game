@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class LetterButton extends Component {
 
     addLetterToArray = () => {
-        () => this.props.addLetterHandler(this.props.letter)
+        this.props.addLetterHandler(this.props.letter)
     }
 
     render() {
